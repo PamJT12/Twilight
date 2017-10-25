@@ -1,0 +1,66 @@
+import Foundation 
+
+protocol Cantante{
+	var rola: String {get set}
+	func cantar( )
+	
+}
+
+protocol Atleta{
+	var deporte: String{get}
+}
+
+
+class Alumno: Cantante, Atleta{
+	var deporte: String = "patinaje"
+	var rola: String = "i need U"
+	func cantar(){
+		print("Cantando...\(self.rola)")
+		
+	}
+	
+}
+
+let magno = Alumno()
+
+magno.cantar()
+
+
+///Herencia entre protocolos
+
+protocol Atletas{
+	var deporte: String{get}
+}
+
+
+protocol Cantantes: Atletas{//Cantante hereda de Atleta
+	var rola: String {get set}
+	func cantar( )
+	
+}
+
+protocol Matematico{
+	var tipoMatematico: String {get}
+}
+
+
+extension Matematico{
+	func muestra() -> String{
+		return "se matematicas"
+	}
+}
+
+class Alumnos: Cantantes,Matematico{
+	var deporte: String = "patinaje"
+	var rola: String = "i like it"
+
+		print("Cantando...\(self.rola)")
+		
+	}
+	
+}
+
+let V = Alumnos()
+
+V.cantar()
+print(V.deporte)
