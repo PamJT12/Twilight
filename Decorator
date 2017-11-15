@@ -1,0 +1,93 @@
+import Foundation
+
+//Patron de Diseño Decorator
+
+
+protocol Taco{
+	
+	var costo: Double{ get }
+	var desc: String{ get }
+	
+	
+}
+
+class TacoMaciza: Taco{
+	var costo:Double{
+		get{
+			return 15.0
+			}
+	}
+	
+	var desc: String{
+		get{
+			return "Taco de Maciza"
+		}
+	}
+}
+
+class TacoDecorator: Taco{
+	var costo: Double{
+		get {
+			return tacoInstancia.costo //hace referencia a los objetos
+		}
+	}
+	
+	var desc: String{
+		get {
+			return tacoInstancia.desc
+		}
+	}
+	
+	let tacoInstancia: Taco
+	
+	required init (taco: Taco){
+		self.tacoInstancia = taco
+	}	
+}
+
+final class Cebollitas: TacoDecorator{
+	override var costo: Double{
+		get{
+			return tacoInstancia.costo + 5.0
+		}
+	}
+	
+	override var desc: String{
+		get{
+			return tacoInstancia.desc + " cebollitas"
+		}
+	}
+	
+	required init (taco: Taco){
+		super.init(taco: taco)
+	}
+}
+
+final class ChileHabanero: TacoDecorator{
+	override var costo: Double{
+		get{
+			return tacoInstancia.costo + 5.0
+		}
+	}
+	
+	override var desc: String{
+		get{
+			return tacoInstancia.desc + " ChileHabanero"
+		}
+	}
+	
+	required init (taco: Taco){
+		super.init(taco: taco)
+	}
+}
+
+
+var tacomaciza: Taco = TacoMaciza()
+print ("\(tacomaciza.desc)cuesta \(tacomaciza.costo)")
+
+
+tacomaciza = Cebollitas(taco: tacomaciza)
+print ("\(tacomaciza.desc) cuesta \(tacomaciza.costo)")
+
+tacomaciza = ChileHabanero(taco: tacomaciza)
+print ("\(tacomaciza.desc) cuesta \(tacomaciza.costo)")
